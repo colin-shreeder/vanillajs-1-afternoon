@@ -76,7 +76,18 @@ _Note: Review the exisiting HTML so you are familiar with the structure you are 
 In this step, we will reassign value of the `player` from `X` to `O` when the board is clicked. This will occur after a `player` has clicked the board to take their turn and it is then the next players turn.
 
 ### Instructions
-- In index.js, create a function called `play`. We will be invoking this function any time one of 9 boxes are clicked. 
+- In index.js, create a function called `play`. We will be invoking this function any time one of 9 boxes are clicked.
+
+table = the board
+
+.player to 0
+
+function play (){
+
+}
+
+onClick.play();
+
 - Using the passed in parameter and `getElementById` select the box that was clicked and save it to a new variable.
 - In the `play` function, using 'getElementById', select the span in the html with the id of `player`. 
 - Every time this function runs we will want to toggle the `X` to a `O` or vise versa to signify the next player's turn.
@@ -86,6 +97,22 @@ In this step, we will reassign value of the `player` from `X` to `O` when the bo
 <summary>
 <code>Detailed Instructions</code>
 </summary>
+
+table = the board
+
+.player to 0
+
+function play (){
+  const playerSpan = document.getElementById('player');
+
+  if (playerSpan.innerText === 'X'){
+    playerSpan.innerText = 'O'
+  } else {
+    playerSpan.innerText = 'X'
+  }
+}
+
+table.onClick.play();
 
   - The first thing that we will want to do inside our `index.js` file is to make a function called `play`. This function will not take in any parameters.
   - Inside the `play` function we need to get the element in the html document that displays who's turn it currently is. Notice that in the HTML file there is a span surrounding an X with an id of `player`.
@@ -130,6 +157,21 @@ In this step, we will put either an `X` or an `O` as the content of the square t
 - Using the passed in parameter and `getElementById` select the box that was clicked and save it to a variable.
 - Using that variable, set the `innerText` of the clicked element to have the value of the current player.
 
+
+function play (clickedId){
+  const playerSpan = document.getElementById('player');
+
+  if (playerSpan.innerText === 'X'){
+    playerSpan.innerText = 'O'
+  } else {
+    playerSpan.innerText = 'X'
+  }
+}
+
+let clickedElement = document.getElementById(clickedId)
+
+table.onClick.play();
+
 <details>
 <summary>
 <code>Detailed Instructions</code>
@@ -143,6 +185,23 @@ In this step, we will put either an `X` or an `O` as the content of the square t
 </details>
 
 ### Solution
+
+function play (clickedId){
+  const playerSpan = document.getElementById('player');
+  const clickedElement = document.getElementById(clickedId);
+
+  if (playerSpan.innerText === 'X'){
+    playerSpan.innerText = 'O'
+    clickedElement.innerText = 'O';
+  } else {
+    playerSpan.innerText = 'X';
+    clickedElement.innerText= 'O';
+  }
+}
+
+let clickedElement = document.getElementById(clickedId)
+
+table.onClick.play();
 
 <details>
 
@@ -183,6 +242,23 @@ In this step, we will create an array that will keep track of the game's progres
 <summary>
 <code>Detailed Instructions</code>
 </summary>
+
+function play (clickedId){
+  const playerSpan = document.getElementById('player');
+  const clickedElement = document.getElementById(clickedId);
+
+  if (playerSpan.innerText === 'X'){
+    playerSpan.innerText = 'O';
+    clickedElement.innerText = 'O';
+    board[clickedId] = 'X";
+  } else {
+    playerSpan.innerText = 'X';
+    clickedElement.innerText= 'O';
+    board[clickedId] = 'O';
+  }
+}  console.log(board);
+
+let board = [];
 
 - Create a variable at the top of the document, outside the `play` function that is equal to an empty array, lets call it `board`.
   - This array will be keeping track of who played what where and eventually will be how we determine if 3 items are clicked in a row.
@@ -242,7 +318,7 @@ In this step, we will complete the logic that will determine if there is a winne
   - This step is not needed for the function to run properly, but it will make it easier to read.
   - Lets name each square appropriately by naming each of the 9 variables based off its location in the grid. For instance `topRight`, `topCenter`, and `middleCenter`.
 - We next need to check if a winner has been determined. To do that we need to check every possible winning combination. For instance if `topLeft`, `topMiddle` and `topRight` all equal each other then we know we have a winner, almost. It is possible that all 3 squares have no value so they would all equal `undefiend`, which is not a winner. Because of that we need to first check that one of the squares does not equal `undefined`.
-  - It will look something like this `if (topRight !== undefined && topRight === topCenter && topRight === topRight)`
+  - It will look something like this `if (topRight !== undefined && topRight === topCenter && topRight === topLeft)`
   - In the case that all 3 are the same values then we will alert the winner. We can tell who won by looking at any of the 3 values, as what those variables hold is who played in those squares.
 - Finally we need to check if the board has been filled in yet. To do this we are going to write a for loop that loops exactly 9 times, and check each index of the array.
   - If any of the index of the array contains `undefined`, we know that the array is not yet full. To keep track of this we need to create a variable called `boardFull` that by default is set to true. If we ever see the value `undefined` then we need to set its value to `false`.
